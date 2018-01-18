@@ -12,6 +12,6 @@ Computer behaviour: The computer will continue moving its ship (in random direct
 # Revision History
 0.01 - Got 2D board uploaded and moving ship works
 0.02 - Can move ship with speed of one limit from the center of board
-
+Hello why don't you stop? scrolling...
 
 
