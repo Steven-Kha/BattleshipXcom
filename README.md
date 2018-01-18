@@ -14,6 +14,4 @@ Computer behaviour: The computer will continue moving its ship (in random direct
 
 0.02 - Can move ship with speed of one limit from the center of board
 
-Hello why don't you stop? scrolling...
-
-
+end
