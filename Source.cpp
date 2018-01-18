@@ -201,11 +201,11 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, char board[][6])
 			print(board);
 			//cout << "success! \n";
 			//to save time compiling when it succeeds
-			oneY = 3;
+			/*oneY = 3;
 			oneX = 3;
 			board[oneY][oneX] = '$'; 
 			board[coordY - 1][xNum] = 'X'; 
-			moveOne(oneX, oneY, twoX, twoY, board);
+			moveOne(oneX, oneY, twoX, twoY, board); */
 		}
 
 		else
