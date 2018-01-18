@@ -1,3 +1,14 @@
+// testing 0.03
+// moving ship speed of 1 from the four corners
+// later on test moving from the four sides with top, left, right, bottom cut off
+//X: 0 Y:0 passes
+//X: 5 Y:0 passes
+//X:0 Y:5 passes
+//X:5 Y:5 passes
+// all four corners have passed
+// cout << "success! \n";
+
+
 #include <iostream>
 #include <string>
 using std::string;
@@ -9,8 +20,8 @@ int main() {
 	
 	char oceanBoard[6][6] = {};
 	//player one coordinates
-	int OneX = 3; 
-	int OneY = 3;
+	int OneX = 0; 
+	int OneY = 0;
 	
 	//player two coordinates
 	int TwoX = 5;
@@ -58,10 +69,10 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, char board[][6])
 	else
 		xNum = 7;
 
-	cout << xNum << "\n";
+	/*cout << xNum << "\n";
 	cout << oneX << "\n";
 	cout << "xNum - oneX equals: " << xNum - oneX << "\n";
-	cout << "oneX - xNum equals: " << oneX - xNum << "\n";
+	cout << "oneX - xNum equals: " << oneX - xNum << "\n";*/
 
 	//check if coordinate is out of bounds and speed displacement is greater than one or
 	//less than zero
@@ -69,7 +80,7 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, char board[][6])
 	//destination - current location
 	if ((xNum - oneX > 1 || xNum - oneX < 0 ))
 	{
-		cout << "Failed X part 1 \n"; //so xPass is false if destination is less than current
+		//cout << "Failed X part 1 \n"; //so xPass is false if destination is less than current
 	}
 	else
 	{
@@ -81,7 +92,7 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, char board[][6])
 		//current location - destination
 		if (oneX - xNum > 1 || oneX - xNum < 0)
 		{
-			cout << "Failed X part 2 \n";
+			//cout << "Failed X part 2 \n";
 			cout << "Please re-enter valid X: ";
 			system("pause");
 			system("cls");
@@ -90,7 +101,7 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, char board[][6])
 			return;
 		}
 
-		cout << "I passed x part 2! \n";
+		//cout << "I passed x part 2! \n";
 		xPass = true;
 	}
 
@@ -113,7 +124,7 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, char board[][6])
 	//destination - current location
 	if (  (coordY-1) - oneY > 1  || (coordY - 1) - oneY < 0  )
 	{
-		cout << "Failed Y part 1 \n";
+		//cout << "Failed Y part 1 \n";
 	}
 	else
 	{
@@ -125,8 +136,8 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, char board[][6])
 		//current location - destination
 		if ( ((oneY+1) - coordY > 1  ) || ( (oneY+1) - coordY < 0)   )
 		{
-			cout << "Failed Y part 2 \n";
-			cout << "Please re-enter valid Y: ";		
+			/*cout << "Failed Y part 2 \n";
+			cout << "Please re-enter valid Y: ";*/		
 			system("pause");
 			system("cls");
 			print(board);
@@ -137,7 +148,7 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, char board[][6])
 		yPass = true;
 	}
 
-	while (coordY < 0 || coordY > 5)
+	while (coordY < 1 || coordY > 6)
 	{
 		cout << "Please re-enter valid Y: ";
 		system("pause");
@@ -149,7 +160,7 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, char board[][6])
 	
 	if (xPass == false && yPass == false)
 	{
-		cout << "do nothing \n";
+		//cout << "do nothing \n";
 		return;
 	}
 
@@ -185,14 +196,13 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, char board[][6])
 			oneY = coordY - 1;
 			oneX = xNum;
 			print(board);
-			
-			//to save time compiling when it succeeds
 			cout << "success! \n";
-			oneY = 3;
-			oneX = 3;
+			//to save time compiling when it succeeds
+			/*oneY = 5;
+			oneX = 5;
 			board[oneY][oneX] = '$';
 			board[coordY - 1][xNum] = 'X';
-			moveOne(oneX, oneY, twoX, twoY, board);
+			moveOne(oneX, oneY, twoX, twoY, board);*/
 		}
 
 		else
