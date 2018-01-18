@@ -20,12 +20,12 @@ int main() {
 	
 	char oceanBoard[6][6] = {};
 	//player one coordinates
-	int OneX = 0; 
-	int OneY = 0;
+	int OneX = 3; 
+	int OneY = 3;
 	
 	//player two coordinates
-	int TwoX = 5;
-	int TwoY = 5;
+	int TwoX = 3;
+	int TwoY = 4;
 
 	//$ is your ship symbol & is the cpu
 	oceanBoard[OneY][OneX] = '$';
@@ -136,15 +136,15 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, char board[][6])
 		//current location - destination
 		if ( ((oneY+1) - coordY > 1  ) || ( (oneY+1) - coordY < 0)   )
 		{
-			/*cout << "Failed Y part 2 \n";
-			cout << "Please re-enter valid Y: ";*/		
+			//cout << "Failed Y part 2 \n";
+			cout << "Please re-enter valid Y: ";		
 			system("pause");
 			system("cls");
 			print(board);
 			moveOne(oneX, oneY, twoX, twoY, board);
 			return;
 		}
-		cout << "I passed part 2! \n";
+		//cout << "I passed part 2! \n";
 		yPass = true;
 	}
 
@@ -195,14 +195,17 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, char board[][6])
 			board[oneY][oneX] = 'X';
 			oneY = coordY - 1;
 			oneX = xNum;
+			cout << "Coordinates received!... \n";
+			system("pause");
+			system("cls");
 			print(board);
-			cout << "success! \n";
+			//cout << "success! \n";
 			//to save time compiling when it succeeds
-			/*oneY = 5;
-			oneX = 5;
-			board[oneY][oneX] = '$';
-			board[coordY - 1][xNum] = 'X';
-			moveOne(oneX, oneY, twoX, twoY, board);*/
+			oneY = 3;
+			oneX = 3;
+			board[oneY][oneX] = '$'; 
+			board[coordY - 1][xNum] = 'X'; 
+			moveOne(oneX, oneY, twoX, twoY, board);
 		}
 
 		else
