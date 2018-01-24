@@ -14,10 +14,11 @@
 using std::string;
 using namespace std;
 
+// function prototypes
 void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, char board[][6]);
 void print(char board[][6]);
+
 int main() {
-	
 	char oceanBoard[6][6] = {};
 	//player one coordinates
 	int OneX = 3; 
@@ -31,15 +32,13 @@ int main() {
 	oceanBoard[OneY][OneX] = '$';
 	oceanBoard[TwoY][TwoX] = '&';
 
-
 	print(oceanBoard);
-
 	moveOne(OneX, OneY, TwoX, TwoY, oceanBoard);
 
 	system("pause");
 	return 0;
 }
-
+// this function moves player one's ship
 void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, char board[][6])
 {
 	system("pause");
@@ -68,11 +67,6 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, char board[][6])
 		xNum = 5;
 	else
 		xNum = 7;
-
-	/*cout << xNum << "\n";
-	cout << oneX << "\n";
-	cout << "xNum - oneX equals: " << xNum - oneX << "\n";
-	cout << "oneX - xNum equals: " << oneX - xNum << "\n";*/
 
 	//check if coordinate is out of bounds and speed displacement is greater than one or
 	//less than zero
@@ -215,7 +209,6 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, char board[][6])
 			moveOne(oneX, oneY, twoX, twoY, board);
 		}
 	}
-	
 }
 
 void print(char board[][6])
@@ -241,7 +234,6 @@ void print(char board[][6])
 				cout << board[i][j];
 			else
 				cout << "X";
-			
 		}
 		cout << "\n";
 	}
