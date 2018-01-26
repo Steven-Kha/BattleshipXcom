@@ -14,4 +14,8 @@ Computer behaviour: The computer will continue moving its ship (in random direct
 
 0.02 - Can move ship with speed of one limit from the center of board and the four corners. Test the four sides?
 
+0.03 - We assumed we needed a char of ships. We only needed a getter function for ships's rep and set it equal to the char array's values
+       We also created instances of ship in the main and tested that the speed works for specific ships we're passing in the moveONE function                 
+       correctly.
+
 end
