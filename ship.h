@@ -1,8 +1,3 @@
-/*
-The idea here is to have an abstract class that would act as a blueprint/template for the other ships
-(Corvette, frigate, and iron clad). These ships would all inherit from "protoship" class. For now, the
-only real difference between the corvette, frigate and iron clad ships are their stats.
-*/
 #include <string>
 #include <iostream>
 
@@ -13,8 +8,8 @@ public:
 
 	//virtual ~ship() {}			// a virtual destructor 
 	//virtual int shipStats();		// this function will print out the stats of each ship type. 
-	//virtual void shipRep();			// this function will print out an upper/lower-case 'c', 'f', or 'i'
-	//								//		depending on the ship's owner. Upper case for computer, lower for the user 
+	//virtual void shipRep();		// this function will print out an upper/lower-case 'c', 'f', or 'i'
+	//					//	depending on the ship's owner. Upper case for computer, lower for the user 
 
 	//virtual bool checkRange();		// returns true if target ship is within range. False if out-of-range
 	//virtual bool checkSpeed();		// returns true if  move destination is allowed by speed constraint. Otherwise, returns false 
@@ -42,8 +37,8 @@ private:
 	char rep_;
 	int health_;
 	int attack_;
-	int range_;			// how far a ship can shoot
-	int speed_;			// determines how far can the ship can move
+	int range_;		// how far a ship can shoot
+	int speed_;		// determines how far can the ship can move
 	double hitProb_;	// the odds that an attack is a successful hit 
 	std::string shipName;
 };
