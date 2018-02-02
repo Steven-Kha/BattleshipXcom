@@ -9,7 +9,7 @@
 // cout << "success! \n";
 
 
-#include "Header.h"
+#include "ship.h"
 #include "hello.h"
 using namespace std;
 
@@ -20,7 +20,7 @@ void print(ship player, ship player2, char board[][6]);
 int main() {
 	std::cout << "Calling the speak() function now:\n";
 	speak();
-	std::cout << "Finished calling the speak function\n"; 
+	std::cout << "Finished calling the speak function\n";
 	char oceanBoard[6][6] = {};
 	// health_(health), attack_(attack), range_(range), speed_(speed), hitProb_(prob), shipName(name), rep_(rep)
 	//           hp,atk,rg,spd,prob,     name, rep
