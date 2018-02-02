@@ -10,7 +10,6 @@
 
 
 #include "ship.h"
-#include "hello.h"
 using namespace std;
 
 
@@ -18,9 +17,6 @@ using namespace std;
 void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship player2, char board[][6]);
 void print(ship player, ship player2, char board[][6]);
 int main() {
-	std::cout << "Calling the speak() function now:\n";
-	speak();
-	std::cout << "Finished calling the speak function\n";
 	char oceanBoard[6][6] = {};
 	// health_(health), attack_(attack), range_(range), speed_(speed), hitProb_(prob), shipName(name), rep_(rep)
 	//           hp,atk,rg,spd,prob,     name, rep
