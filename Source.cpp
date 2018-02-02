@@ -36,13 +36,26 @@ int main() {
 	oceanBoard[TwoY][TwoX] = ironclad.getRep();		// placing player 2's ship on the board
 
 	print(corvette, ironclad, oceanBoard);			// printing the gameboard to the console
-	moveOne(OneX, OneY, TwoX, TwoY, corvette, ironclad, oceanBoard);  // calling the function to move player 1's ship
+
+	int menuSelection = 0;							// the player's selection from the menu
+	while (corvette.getHealth() > 0 || ironclad.getHealth() > 0) {
+		std::cout << "Select an option:\n";
+		std::cout << "1) Move\n";
+		std::cout << "2) Attack\n";
+		std::cin >> menuSelection;
+		if (menuSelection == 1) {
+			moveOne(OneX, OneY, TwoX, TwoY, corvette, ironclad, oceanBoard);
+		}
+		if (menuSelection == 2) {
+			std::cout << "Attack function has not been implemented\n";
+		}
+	}
 
 	system("pause");
 	return 0;
 }
 
-void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship player2, char board[][6]){
+void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship player2, char board[][6]) {
 	system("pause");
 	int coordY = 0;
 	char coordX;
@@ -54,15 +67,15 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 	cout << "Enter X coordinate: ";
 	cin >> coordX;				// coordX is user input
 
-	//converting Letters to x coordinates
-	if		(coordX == 'A' || coordX == 'a')	{ xNum = 0; }
-	else if (coordX == 'B' || coordX == 'b')	{ xNum = 1; }
-	else if (coordX == 'C' || coordX == 'c')	{ xNum = 2; }
-	else if (coordX == 'D' || coordX == 'd')	{ xNum = 3; }
-	else if (coordX == 'E' || coordX == 'e')	{ xNum = 4; }
-	else if (coordX == 'F' || coordX == 'f')	{ xNum = 5; }
+								//converting Letters to x coordinates
+	if (coordX == 'A' || coordX == 'a') { xNum = 0; }
+	else if (coordX == 'B' || coordX == 'b') { xNum = 1; }
+	else if (coordX == 'C' || coordX == 'c') { xNum = 2; }
+	else if (coordX == 'D' || coordX == 'd') { xNum = 3; }
+	else if (coordX == 'E' || coordX == 'e') { xNum = 4; }
+	else if (coordX == 'F' || coordX == 'f') { xNum = 5; }
 
-	else										{ xNum = 7; }
+	else { xNum = 7; }
 
 	//checking if coordinate is out of bounds and speed displacement is greater than one or
 	//less than zero
@@ -75,16 +88,16 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 	}
 	else { xPass = true; }
 
-	if (xPass == false){ // only runs if destination is lower than current
+	if (xPass == false) { // only runs if destination is lower than current
 
-		// since xPass is false, we check the speed with (current location - destination)
-		// check the displacement from current location and destiation is above the speed value
-		// if it is below the speed value, double check if destination is greater than current location
-		// ex: 3 - 6 > 2 is false but 3- 6 > 0 is true so player must re-enter valid x
-		// if destination was greater than current location, it's because the destination was above the speed value
-		// from the current location
-		//
-		if (oneX - xNum > player.getSpeed() || oneX - xNum < 0){
+						  // since xPass is false, we check the speed with (current location - destination)
+						  // check the displacement from current location and destiation is above the speed value
+						  // if it is below the speed value, double check if destination is greater than current location
+						  // ex: 3 - 6 > 2 is false but 3- 6 > 0 is true so player must re-enter valid x
+						  // if destination was greater than current location, it's because the destination was above the speed value
+						  // from the current location
+						  //
+		if (oneX - xNum > player.getSpeed() || oneX - xNum < 0) {
 			cout << "Please re-enter valid X: ";
 			system("pause");
 			system("cls");
@@ -95,7 +108,7 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 		xPass = true;
 	}
 
-	if ((xNum < 0 || xNum > 5)){
+	if ((xNum < 0 || xNum > 5)) {
 		cout << "Please re-enter valid X: ";
 		system("pause");
 		system("cls");
@@ -112,15 +125,15 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 
 	//destination - current location
 	//we are offsetting the coord y because the board starts at one instead of zero
-	if ((coordY - 1) - oneY > player.getSpeed() || (coordY - 1) - oneY < 0){
+	if ((coordY - 1) - oneY > player.getSpeed() || (coordY - 1) - oneY < 0) {
 		//cout << "Failed Y part 1 \n";
 	}
-	else{ yPass = true; }
+	else { yPass = true; }
 
-	if (yPass == false){
+	if (yPass == false) {
 		//current location - destination
 		//we are offsetting the coord y because the board starts at one instead of zero
-		if (((oneY + 1) - coordY > player.getSpeed()) || ((oneY + 1) - coordY < 0)){
+		if (((oneY + 1) - coordY > player.getSpeed()) || ((oneY + 1) - coordY < 0)) {
 			//cout << "Failed Y part 2 \n";
 			cout << "Please re-enter valid Y: ";
 			system("pause");
@@ -133,7 +146,7 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 		yPass = true;
 	}
 
-	while (coordY < 1 || coordY > 6){
+	while (coordY < 1 || coordY > 6) {
 		cout << "Please re-enter valid Y: ";
 		system("pause");
 		system("cls");
@@ -166,7 +179,7 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 			}
 		}
 
-		if (board[coordY - 1][xNum] != board[twoY][twoX]){
+		if (board[coordY - 1][xNum] != board[twoY][twoX]) {
 			board[coordY - 1][xNum] = player.getRep();
 			board[oneY][oneX] = 'X';
 			oneY = coordY - 1;
@@ -184,7 +197,7 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 			moveOne(oneX, oneY, twoX, twoY, board);*/
 		}
 
-		else{
+		else {
 			cout << "That's where the other ship is!";
 			system("pause");
 			moveOne(oneX, oneY, twoX, twoY, player, player2, board);
@@ -192,7 +205,7 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 	}
 }
 
-void print(ship player, ship player2, char board[][6]){
+void print(ship player, ship player2, char board[][6]) {
 	char abcRow[6] = { 'A', 'B', 'C', 'D', 'E','F' };
 
 	cout << "   ";
@@ -201,7 +214,7 @@ void print(ship player, ship player2, char board[][6]){
 	}
 	cout << "\n";
 
-	for (int i = 0; i < 6; i++){
+	for (int i = 0; i < 6; i++) {
 		cout << i + 1 << " ";
 		for (int j = 0; j < 6; j++)
 		{
