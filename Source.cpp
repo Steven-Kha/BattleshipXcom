@@ -9,7 +9,8 @@
 // cout << "success! \n";
 
 
-#include "Header.h"
+#include "ship.h"
+#include "hello.h"
 using namespace std;
 
 
@@ -17,17 +18,19 @@ using namespace std;
 void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship player2, char board[][6]);
 void print(ship player, ship player2, char board[][6]);
 int main() {
-
+	std::cout << "Calling the speak() function now:\n";
+	speak();
+	std::cout << "Finished calling the speak function\n";
 	char oceanBoard[6][6] = {};
 	// health_(health), attack_(attack), range_(range), speed_(speed), hitProb_(prob), shipName(name), rep_(rep)
 	//           hp,atk,rg,spd,prob,     name, rep
 	ship corvette(10, 2, 2, 2, 0.8, "corvette", 'C');
-	ship ironclad(30, 6, 1, 1, 0.99, "Ironclad", 'i'); 
+	ship ironclad(30, 6, 1, 1, 0.99, "Ironclad", 'i');
 
 	//player one coordinates
-	int OneX = 3; 
+	int OneX = 3;
 	int OneY = 3;
-	
+
 	//player two coordinates
 	int TwoX = 5;
 	int TwoY = 5;
@@ -54,7 +57,7 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 	bool xPass = false;
 	bool yPass = false;
 	cout << "------------------------";
-	
+
 	cout << "Enter X coordinate: ";
 	cin >> coordX;
 
@@ -91,7 +94,7 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 	{
 		xPass = true;
 	}
-	
+
 	if (xPass == false) //only runs if destintion is lower than current
 	{
 		//current location - destination
@@ -136,7 +139,7 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 	{
 		yPass = true;
 	}
-	
+
 	if (yPass == false)
 	{
 		//current location - destination
@@ -144,7 +147,7 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 		if ( ((oneY+1) - coordY > player.getSpeed()  ) || ( (oneY+1) - coordY < 0)   )
 		{
 			//cout << "Failed Y part 2 \n";
-			cout << "Please re-enter valid Y: ";		
+			cout << "Please re-enter valid Y: ";
 			system("pause");
 			system("cls");
 			print(player, player2, board);
@@ -164,8 +167,8 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 		moveOne(oneX, oneY, twoX, twoY, player, player2, board);
 		return;
 	}
-	
-	
+
+
 	if (xPass == false && yPass == false)
 	{
 		//cout << "do nothing \n";
@@ -173,7 +176,7 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 	}
 
 	else {
-		//did the characters move at all? 
+		//did the characters move at all?
 		//are the characters of the ship you were moving still occupying the same original location
 		if (board[coordY - 1][xNum] == board[oneY][oneX])
 		{
@@ -186,8 +189,8 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 				<< "Choice: ";
 			cin >> answer;
 			if (answer == 'n' || answer == 'N')
-			{		
-				exit(1);				
+			{
+				exit(1);
 			}
 			else
 			{
@@ -213,8 +216,8 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 			//to save time compiling when it succeeds
 			/*oneY = 3;
 			oneX = 3;
-			board[oneY][oneX] = '$'; 
-			board[coordY - 1][xNum] = 'X'; 
+			board[oneY][oneX] = '$';
+			board[coordY - 1][xNum] = 'X';
 			moveOne(oneX, oneY, twoX, twoY, board);*/
 		}
 
@@ -225,7 +228,7 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 			moveOne(oneX, oneY, twoX, twoY, player, player2, board);
 		}
 	}
-	
+
 }
 
 void print(ship player, ship player2, char board[][6])
@@ -251,7 +254,7 @@ void print(ship player, ship player2, char board[][6])
 				cout << player2.getRep();
 			else
 				cout << "X";
-			
+
 		}
 		cout << "\n";
 	}
