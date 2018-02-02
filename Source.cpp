@@ -12,10 +12,11 @@
 #include "ship.h"
 using namespace std;
 
-
-
+// function prototypes
 void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship player2, char board[][6]);
 void print(ship player, ship player2, char board[][6]);
+
+
 int main() {
 	char oceanBoard[6][6] = {};
 	// health_(health), attack_(attack), range_(range), speed_(speed), hitProb_(prob), shipName(name), rep_(rep)
@@ -23,80 +24,67 @@ int main() {
 	ship corvette(10, 2, 2, 2, 0.8, "corvette", 'C');
 	ship ironclad(30, 6, 1, 1, 0.99, "Ironclad", 'i');
 
-	//player one coordinates
+	//player one starting coordinates
 	int OneX = 3;
 	int OneY = 3;
 
-	//player two coordinates
+	//player two starting coordinates
 	int TwoX = 5;
 	int TwoY = 5;
 
-	//$ is your ship symbol & is the cpu
-	oceanBoard[OneY][OneX] = corvette.getRep();
-	oceanBoard[TwoY][TwoX] = ironclad.getRep();
+	oceanBoard[OneY][OneX] = corvette.getRep();		// placing player 1's ship on the board
+	oceanBoard[TwoY][TwoX] = ironclad.getRep();		// placing player 2's ship on the board
 
-
-	print(corvette, ironclad, oceanBoard);
-
-	moveOne(OneX, OneY, TwoX, TwoY, corvette, ironclad, oceanBoard);
+	print(corvette, ironclad, oceanBoard);			// printing the gameboard to the console
+	moveOne(OneX, OneY, TwoX, TwoY, corvette, ironclad, oceanBoard);  // calling the function to move player 1's ship
 
 	system("pause");
 	return 0;
 }
 
-void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship player2, char board[][6])
-{
+void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship player2, char board[][6]){
 	system("pause");
 	int coordY = 0;
 	char coordX;
-	int xNum = 0; //destination
-	bool xPass = false;
+	int xNum = 0;				// destination coordinates
+	bool xPass = false;			//
 	bool yPass = false;
 	cout << "------------------------";
 
 	cout << "Enter X coordinate: ";
-	cin >> coordX;
+	cin >> coordX;				// coordX is user input
 
 	//converting Letters to x coordinates
-	if (coordX == 'A' || coordX == 'a')
-		xNum = 0;
-	else if (coordX == 'B' || coordX == 'b')
-		xNum = 1;
-	else if (coordX == 'C' || coordX == 'c')
-		xNum = 2;
-	else if (coordX == 'D' || coordX == 'd')
-		xNum = 3;
-	else if (coordX == 'E' || coordX == 'e')
-		xNum = 4;
-	else if (coordX == 'F' || coordX == 'f')
-		xNum = 5;
-	else
-		xNum = 7;
+	if		(coordX == 'A' || coordX == 'a')	{ xNum = 0; }
+	else if (coordX == 'B' || coordX == 'b')	{ xNum = 1; }
+	else if (coordX == 'C' || coordX == 'c')	{ xNum = 2; }
+	else if (coordX == 'D' || coordX == 'd')	{ xNum = 3; }
+	else if (coordX == 'E' || coordX == 'e')	{ xNum = 4; }
+	else if (coordX == 'F' || coordX == 'f')	{ xNum = 5; }
 
-	/*cout << xNum << "\n";
-	cout << oneX << "\n";
-	cout << "xNum - oneX equals: " << xNum - oneX << "\n";
-	cout << "oneX - xNum equals: " << oneX - xNum << "\n";*/
+	else										{ xNum = 7; }
 
-	//check if coordinate is out of bounds and speed displacement is greater than one or
+	//checking if coordinate is out of bounds and speed displacement is greater than one or
 	//less than zero
 
 	//destination - current location
-	if ((xNum - oneX > player.getSpeed() || xNum - oneX < 0 ))
+	if ((xNum - oneX > player.getSpeed() || xNum - oneX < 0)) // xNum is destination; oneX is current location
 	{
-		//cout << "Failed X part 1 \n"; //so xPass is false if destination is less than current
+		// if the ship is moving beyond the speed (range) in a positive direction,
+		// OR the destination is negative, then xPass is false;
 	}
-	else
-	{
-		xPass = true;
-	}
+	else { xPass = true; }
 
-	if (xPass == false) //only runs if destintion is lower than current
-	{
-		//current location - destination
-		if (oneX - xNum > player.getSpeed() || oneX - xNum < 0)
-		{
-			//cout << "Failed X part 2 \n";
+	if (xPass == false){ // only runs if destination is lower than current
+
+		// since xPass is false, we check the speed with (current location - destination)
+		// check the displacement from current location and destiation is above the speed value
+		// if it is below the speed value, double check if destination is greater than current location
+		// ex: 3 - 6 > 2 is false but 3- 6 > 0 is true so player must re-enter valid x
+		// if destination was greater than current location, it's because the destination was above the speed value
+		// from the current location
+		//
+		if (oneX - xNum > player.getSpeed() || oneX - xNum < 0){
 			cout << "Please re-enter valid X: ";
 			system("pause");
 			system("cls");
@@ -104,13 +92,10 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 			moveOne(oneX, oneY, twoX, twoY, player, player2, board);
 			return;
 		}
-
-		//cout << "I passed x part 2! \n";
 		xPass = true;
 	}
 
-	if ((xNum < 0 || xNum > 5))
-	{
+	if ((xNum < 0 || xNum > 5)){
 		cout << "Please re-enter valid X: ";
 		system("pause");
 		system("cls");
@@ -127,21 +112,15 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 
 	//destination - current location
 	//we are offsetting the coord y because the board starts at one instead of zero
-	if (  (coordY-1) - oneY > player.getSpeed()  || (coordY - 1) - oneY < 0  )
-	{
+	if ((coordY - 1) - oneY > player.getSpeed() || (coordY - 1) - oneY < 0){
 		//cout << "Failed Y part 1 \n";
 	}
-	else
-	{
-		yPass = true;
-	}
+	else{ yPass = true; }
 
-	if (yPass == false)
-	{
+	if (yPass == false){
 		//current location - destination
 		//we are offsetting the coord y because the board starts at one instead of zero
-		if ( ((oneY+1) - coordY > player.getSpeed()  ) || ( (oneY+1) - coordY < 0)   )
-		{
+		if (((oneY + 1) - coordY > player.getSpeed()) || ((oneY + 1) - coordY < 0)){
 			//cout << "Failed Y part 2 \n";
 			cout << "Please re-enter valid Y: ";
 			system("pause");
@@ -154,8 +133,7 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 		yPass = true;
 	}
 
-	while (coordY < 1 || coordY > 6)
-	{
+	while (coordY < 1 || coordY > 6){
 		cout << "Please re-enter valid Y: ";
 		system("pause");
 		system("cls");
@@ -165,17 +143,12 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 	}
 
 
-	if (xPass == false && yPass == false)
-	{
-		//cout << "do nothing \n";
-		return;
-	}
+	if (xPass == false && yPass == false) { return; }
 
 	else {
 		//did the characters move at all?
 		//are the characters of the ship you were moving still occupying the same original location
-		if (board[coordY - 1][xNum] == board[oneY][oneX])
-		{
+		if (board[coordY - 1][xNum] == board[oneY][oneX]) {
 			char answer;
 			cout << "You didn't move. \n"
 				<< "Re-enter coordinates or quit? \n";
@@ -184,22 +157,16 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 				<< "[N] No\n"
 				<< "Choice: ";
 			cin >> answer;
-			if (answer == 'n' || answer == 'N')
-			{
-				exit(1);
-			}
-			else
-			{
+			if (answer == 'n' || answer == 'N') { exit(1); }
+			else {
 				system("cls");
 				print(player, player2, board);
 				moveOne(oneX, oneY, twoX, twoY, player, player2, board);
 				return;
 			}
-
 		}
 
-		if (board[coordY - 1][xNum] != board[twoY][twoX])
-		{
+		if (board[coordY - 1][xNum] != board[twoY][twoX]){
 			board[coordY - 1][xNum] = player.getRep();
 			board[oneY][oneX] = 'X';
 			oneY = coordY - 1;
@@ -217,29 +184,24 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 			moveOne(oneX, oneY, twoX, twoY, board);*/
 		}
 
-		else
-		{
+		else{
 			cout << "That's where the other ship is!";
 			system("pause");
 			moveOne(oneX, oneY, twoX, twoY, player, player2, board);
 		}
 	}
-
 }
 
-void print(ship player, ship player2, char board[][6])
-{
+void print(ship player, ship player2, char board[][6]){
 	char abcRow[6] = { 'A', 'B', 'C', 'D', 'E','F' };
 
 	cout << "   ";
-	for (int i = 0; i < 6; i++)
-	{
+	for (int i = 0; i < 6; i++) {
 		cout << abcRow[i] << " ";
 	}
 	cout << "\n";
 
-	for (int i = 0; i < 6; i++)
-	{
+	for (int i = 0; i < 6; i++){
 		cout << i + 1 << " ";
 		for (int j = 0; j < 6; j++)
 		{
@@ -250,7 +212,6 @@ void print(ship player, ship player2, char board[][6])
 				cout << player2.getRep();
 			else
 				cout << "X";
-
 		}
 		cout << "\n";
 	}
