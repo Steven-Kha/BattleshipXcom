@@ -38,6 +38,8 @@ int main() {
 	print(corvette, ironclad, oceanBoard);			// printing the gameboard to the console
 
 	int menuSelection = 0;							// the player's selection from the menu
+
+	// this is the actual menu itself
 	while (corvette.getHealth() > 0 || ironclad.getHealth() > 0) {
 		std::cout << "Select an option:\n";
 		std::cout << "1) Move\n";
@@ -47,35 +49,37 @@ int main() {
 			moveOne(OneX, OneY, TwoX, TwoY, corvette, ironclad, oceanBoard);
 		}
 		if (menuSelection == 2) {
-			std::cout << "Attack function has not been implemented\n";
+			cout << "-----------------------------------------\n";
+			cout << "Attack function has not been implemented\n";
+			system("pause");
+			system("cls");
+			print(corvette, ironclad, oceanBoard);
 		}
 	}
-
 	system("pause");
 	return 0;
 }
 
 void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship player2, char board[][6]) {
-	system("pause");
 	int coordY = 0;
 	char coordX;
 	int xNum = 0;				// destination coordinates
 	bool xPass = false;			//
 	bool yPass = false;
-	cout << "------------------------";
 
+	cout << "----------------------------------\n";
+	cout << "Moving to new position\n";
 	cout << "Enter X coordinate: ";
 	cin >> coordX;				// coordX is user input
 
-								//converting Letters to x coordinates
-	if (coordX == 'A' || coordX == 'a') { xNum = 0; }
+	//converting Letters to x coordinates
+	if		(coordX == 'A' || coordX == 'a') { xNum = 0; }
 	else if (coordX == 'B' || coordX == 'b') { xNum = 1; }
 	else if (coordX == 'C' || coordX == 'c') { xNum = 2; }
 	else if (coordX == 'D' || coordX == 'd') { xNum = 3; }
 	else if (coordX == 'E' || coordX == 'e') { xNum = 4; }
 	else if (coordX == 'F' || coordX == 'f') { xNum = 5; }
-
-	else { xNum = 7; }
+	else	{ xNum = 7; }
 
 	//checking if coordinate is out of bounds and speed displacement is greater than one or
 	//less than zero
@@ -96,9 +100,9 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 						  // ex: 3 - 6 > 2 is false but 3- 6 > 0 is true so player must re-enter valid x
 						  // if destination was greater than current location, it's because the destination was above the speed value
 						  // from the current location
-						  //
+
 		if (oneX - xNum > player.getSpeed() || oneX - xNum < 0) {
-			cout << "Please re-enter valid X: ";
+			cout << "X coordinates out of speed range\n";
 			system("pause");
 			system("cls");
 			print(player, player2, board);
@@ -109,7 +113,7 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 	}
 
 	if ((xNum < 0 || xNum > 5)) {
-		cout << "Please re-enter valid X: ";
+		cout << "X coordinates out of speed range\n";
 		system("pause");
 		system("cls");
 		print(player, player2, board);
@@ -135,14 +139,13 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 		//we are offsetting the coord y because the board starts at one instead of zero
 		if (((oneY + 1) - coordY > player.getSpeed()) || ((oneY + 1) - coordY < 0)) {
 			//cout << "Failed Y part 2 \n";
-			cout << "Please re-enter valid Y: ";
+			cout << "Y coordinates out of speed range\n";
 			system("pause");
 			system("cls");
 			print(player, player2, board);
 			moveOne(oneX, oneY, twoX, twoY, player, player2, board);
 			return;
 		}
-		//cout << "I passed part 2! \n";
 		yPass = true;
 	}
 
@@ -155,28 +158,19 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 		return;
 	}
 
-
 	if (xPass == false && yPass == false) { return; }
 
 	else {
 		//did the characters move at all?
 		//are the characters of the ship you were moving still occupying the same original location
 		if (board[coordY - 1][xNum] == board[oneY][oneX]) {
-			char answer;
-			cout << "You didn't move. \n"
-				<< "Re-enter coordinates or quit? \n";
-			cout << "------------------------- \n"
-				<< "[Any key] Re-enter \n"
-				<< "[N] No\n"
-				<< "Choice: ";
-			cin >> answer;
-			if (answer == 'n' || answer == 'N') { exit(1); }
-			else {
-				system("cls");
-				print(player, player2, board);
-				moveOne(oneX, oneY, twoX, twoY, player, player2, board);
-				return;
-			}
+			cout << "-----------------------------------------------------------\n";
+			cout << "The ship is already at those coordinates\n";
+			cout << "No displacement occurred\n";
+			system("pause");
+			system("cls");
+			print(player, player2, board);
+			return;
 		}
 
 		if (board[coordY - 1][xNum] != board[twoY][twoX]) {
@@ -184,27 +178,34 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 			board[oneY][oneX] = 'X';
 			oneY = coordY - 1;
 			oneX = xNum;
-			cout << "Coordinates received!... \n";
+			cout << "Moving to new position... \n";
 			system("pause");
 			system("cls");
 			print(player, player2, board);
-			//cout << "success! \n";
-			//to save time compiling when it succeeds
-			/*oneY = 3;
-			oneX = 3;
-			board[oneY][oneX] = '$';
-			board[coordY - 1][xNum] = 'X';
-			moveOne(oneX, oneY, twoX, twoY, board);*/
 		}
 
 		else {
-			cout << "That's where the other ship is!";
+			cout << "------------------------------------\n";
+			cout << "Position is occupied\n";
+			cout << "Re-enter destination coordinates:\n";
 			system("pause");
+			system("cls");
+			print(player, player2, board);
 			moveOne(oneX, oneY, twoX, twoY, player, player2, board);
 		}
 	}
 }
+// the following is the attack function==================================================================
+void attack() {
+	/*
+	user enters coordinates
+	check if coordinates are out of bounds
+	check if coordinates are occupied by user
 
+	*/
+}
+
+// following function prints the entire game board
 void print(ship player, ship player2, char board[][6]) {
 	char abcRow[6] = { 'A', 'B', 'C', 'D', 'E','F' };
 
