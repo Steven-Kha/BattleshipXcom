@@ -24,7 +24,7 @@ int main() {
 	// health_(health), attack_(attack), range_(range), speed_(speed), hitProb_(prob), shipName(name), rep_(rep)
 	//           hp,atk,rg,spd,prob,     name, rep
 	ship corvette(10, 2, 2, 2, 0.8, "corvette", 'C');
-	ship ironclad(30, 6, 1, 1, 0.99, "Ironclad", 'i');
+	ship ironclad(15, 6, 1, 1, 0.99, "Ironclad", 'i');
 
 	//player one starting coordinates
 	int OneX = 3;
@@ -41,8 +41,8 @@ int main() {
 
 	int menuSelection = 0;							// the player's selection from the menu
 
-	// this is the actual menu itself
-	while (corvette.getHealth() < 0 && ironclad.getHealth() < 0) {
+													// this is the actual menu itself
+	while (corvette.getHealth() > 0 && ironclad.getHealth() > 0) {
 		std::cout << "Select an option:\n";
 		std::cout << "1) Move\n";
 		std::cout << "2) Attack\n";
@@ -65,6 +65,15 @@ int main() {
 			//		 or enters a very large number
 		}
 	}
+	if (ironclad.getHealth() < 0 || ironclad.getHealth() == 0) {
+		cout << "Enemy ironclad has been sunk. You've won!\n\n";
+	}
+	else if (corvette.getHealth() < 0 || corvette.getHealth() == 0) {
+		cout << "Your ship was sunk. You've lost...\n\n";
+	}
+	else {
+		cout << "I'm not sure what happened...\n\n";
+	}
 	system("pause");
 	return 0;
 }
@@ -81,14 +90,14 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 	cout << "Enter X coordinate: ";
 	cin >> coordX;				// coordX is user input
 
-	//converting Letters to x coordinates
-	if		(coordX == 'A' || coordX == 'a') { xNum = 0; }
+								//converting Letters to x coordinates
+	if (coordX == 'A' || coordX == 'a') { xNum = 0; }
 	else if (coordX == 'B' || coordX == 'b') { xNum = 1; }
 	else if (coordX == 'C' || coordX == 'c') { xNum = 2; }
 	else if (coordX == 'D' || coordX == 'd') { xNum = 3; }
 	else if (coordX == 'E' || coordX == 'e') { xNum = 4; }
 	else if (coordX == 'F' || coordX == 'f') { xNum = 5; }
-	else	{ xNum = 7; }
+	else { xNum = 7; }
 
 	//checking if coordinate is out of bounds and speed displacement is greater than one or
 	//less than zero
@@ -219,12 +228,12 @@ void attack(int & twoX, int & twoY, ship & player, ship & player2, char board[][
 	cin >> coordY;
 
 	// converting the user's inputted x-coords from letters to corresponding array index number
-	if		(coordX == 'A' || coordX == 'a')	{ xNum = 0; }
-	else if (coordX == 'B' || coordX == 'b')	{ xNum = 1; }
-	else if (coordX == 'C' || coordX == 'c')	{ xNum = 2; }
-	else if (coordX == 'D' || coordX == 'd')	{ xNum = 3; }
-	else if (coordX == 'E' || coordX == 'e')	{ xNum = 4; }
-	else if (coordX == 'F' || coordX == 'f')	{ xNum = 5; }
+	if (coordX == 'A' || coordX == 'a') { xNum = 0; }
+	else if (coordX == 'B' || coordX == 'b') { xNum = 1; }
+	else if (coordX == 'C' || coordX == 'c') { xNum = 2; }
+	else if (coordX == 'D' || coordX == 'd') { xNum = 3; }
+	else if (coordX == 'E' || coordX == 'e') { xNum = 4; }
+	else if (coordX == 'F' || coordX == 'f') { xNum = 5; }
 
 	else { xNum = 7; }
 
@@ -275,7 +284,7 @@ void print(ship player, ship player2, char board[][6]) {
 
 	for (int i = 0; i < 6; i++) {
 		cout << i + 1 << " ";
-		for (int j = 0; j < 6; j++){
+		for (int j = 0; j < 6; j++) {
 			cout << " ";
 			if (board[i][j] == player.getRep())
 				cout << player.getRep();
