@@ -10,11 +10,13 @@
 
 
 #include "ship.h"
+#include <time.h>
 using namespace std;
 
 // function prototypes
 void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship player2, char board[][6]);
 void print(ship player, ship player2, char board[][6]);
+void attack(int & twoX, int & twoY, ship & player, ship & player2, char board[][6]);
 
 
 int main() {
@@ -45,15 +47,22 @@ int main() {
 		std::cout << "1) Move\n";
 		std::cout << "2) Attack\n";
 		std::cin >> menuSelection;
+
+		// player chooses to move
 		if (menuSelection == 1) {
 			moveOne(OneX, OneY, TwoX, TwoY, corvette, ironclad, oceanBoard);
 		}
-		if (menuSelection == 2) {
-			cout << "-----------------------------------------\n";
-			cout << "Attack function has not been implemented\n";
+		// player chooses to attack
+		else if (menuSelection == 2) {
+			attack(TwoX, TwoY, corvette, ironclad, oceanBoard);
+		}
+		else {
+			cout << "Please enter a number from the menu\n";
 			system("pause");
 			system("cls");
 			print(corvette, ironclad, oceanBoard);
+			// note: program will be trapped in infinite loop if user makes a non-numerical entry
+			//		 or enters a very large number
 		}
 	}
 	system("pause");
@@ -95,7 +104,7 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 	if (xPass == false) { // only runs if destination is lower than current
 
 						  // since xPass is false, we check the speed with (current location - destination)
-						  // check the displacement from current location and destiation is above the speed value
+						  // check the displacement from current location and destination is above the speed value
 						  // if it is below the speed value, double check if destination is greater than current location
 						  // ex: 3 - 6 > 2 is false but 3- 6 > 0 is true so player must re-enter valid x
 						  // if destination was greater than current location, it's because the destination was above the speed value
@@ -173,6 +182,7 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 			return;
 		}
 
+		// this if-statement is where the player's ship is moved to the new position
 		if (board[coordY - 1][xNum] != board[twoY][twoX]) {
 			board[coordY - 1][xNum] = player.getRep();
 			board[oneY][oneX] = 'X';
@@ -196,13 +206,60 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 	}
 }
 // the following is the attack function==================================================================
-void attack() {
-	/*
-	user enters coordinates
-	check if coordinates are out of bounds
-	check if coordinates are occupied by user
+void attack(int & twoX, int & twoY, ship & player, ship & player2, char board[][6]) {
+	char coordX;
+	int coordY = 0;
+	int xNum = 0;
 
-	*/
+	cout << "Loading rounds...\n";
+	cout << "Enter X coordinates: ";
+	cin >> coordX;
+
+	cout << "Enter Y coordinates: ";
+	cin >> coordY;
+
+	// converting the user's inputted x-coords from letters to corresponding array index number
+	if		(coordX == 'A' || coordX == 'a')	{ xNum = 0; }
+	else if (coordX == 'B' || coordX == 'b')	{ xNum = 1; }
+	else if (coordX == 'C' || coordX == 'c')	{ xNum = 2; }
+	else if (coordX == 'D' || coordX == 'd')	{ xNum = 3; }
+	else if (coordX == 'E' || coordX == 'e')	{ xNum = 4; }
+	else if (coordX == 'F' || coordX == 'f')	{ xNum = 5; }
+
+	else { xNum = 7; }
+
+	cout << "Target coordinates received. Firing for effect...\n";
+	system("pause");
+
+	// if user's targeting coordinates == coordinates of enemy ship...
+	if (board[coordY - 1][xNum] == board[twoY][twoX]) {
+		srand(time(NULL));
+		int random = rand() % 100 + 1;
+		if (random <= player.getHitProb()) {
+			int p2DamagedHealth = player2.getHealth() - player.getAttack();
+			player2.setHealth(p2DamagedHealth);
+			cout << "--------------------------------------\n";
+			cout << "Confirmed hit!\n";
+			cout << "Enemy " << player2.getName() << "'s health is now at " << player2.getHealth() << " HP\n";
+			system("pause");
+			system("cls");
+			print(player, player2, board);
+		}
+		else {
+			cout << "------------------------------------------\n";
+			cout << "Shots missed! Enemy " << player2.getName() << " is undamaged!\n";
+			system("pause");
+			system("cls");
+			print(player, player2, board);
+		}
+	}
+	else {
+		cout << "-------------------------------------------------\n";
+		cout << "Shots landed in open water\n";
+		system("pause");
+		system("cls");
+		print(player, player2, board);
+	}
 }
 
 // following function prints the entire game board
@@ -217,8 +274,7 @@ void print(ship player, ship player2, char board[][6]) {
 
 	for (int i = 0; i < 6; i++) {
 		cout << i + 1 << " ";
-		for (int j = 0; j < 6; j++)
-		{
+		for (int j = 0; j < 6; j++){
 			cout << " ";
 			if (board[i][j] == player.getRep())
 				cout << player.getRep();
