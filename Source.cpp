@@ -234,7 +234,8 @@ void attack(int & twoX, int & twoY, ship & player, ship & player2, char board[][
 	// if user's targeting coordinates == coordinates of enemy ship...
 	if (board[coordY - 1][xNum] == board[twoY][twoX]) {
 		srand(time(NULL));
-		int random = rand() % 100 + 1;
+		double random = rand() % 100 + 1;
+		random /= 100;
 		if (random <= player.getHitProb()) {
 			int p2DamagedHealth = player2.getHealth() - player.getAttack();
 			player2.setHealth(p2DamagedHealth);
