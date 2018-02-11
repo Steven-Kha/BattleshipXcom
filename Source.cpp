@@ -42,7 +42,7 @@ int main() {
 	int menuSelection = 0;							// the player's selection from the menu
 
 	// this is the actual menu itself
-	while (corvette.getHealth() > 0 || ironclad.getHealth() > 0) {
+	while (corvette.getHealth() < 0 && ironclad.getHealth() < 0) {
 		std::cout << "Select an option:\n";
 		std::cout << "1) Move\n";
 		std::cout << "2) Attack\n";
