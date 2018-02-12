@@ -20,4 +20,6 @@ Computer behaviour: The computer will continue moving its ship (in random direct
        We also created instances of ship in the main and tested that the speed works for specific ships we're passing in the moveONE function                 
        correctly.
 
+2/11 v 0.05 - CheckRange function works. Attack function works. Simplify check range too.
+
 end
