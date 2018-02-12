@@ -136,7 +136,7 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 			else {
 				cout << "That's where the other ship is!";
 				system("pause");
-				moveOne(oneX, oneY, twoX, twoY, player, player2, atk, board);
+				moveOne(oneX, oneY, twoX, twoY, player, player2, board);
 			}
 
 
