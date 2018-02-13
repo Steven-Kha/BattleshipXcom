@@ -8,12 +8,15 @@ Placing the ship: For simplicity's sake, the user's ship will be placed at coord
 Gameplay: Gameplay will be turn based. On the player's turn, he can choose to either move or attack. The distance a ship can move will depend on its speed attribute. A ship can only attack if the target is within range. Every attack will have a probability of a hit or miss. The game will tell the player whether the shot was successful. A successful shot will deplete a portion of the target ship's health. Gameplay will continue until the one of the ships has depleted its health. If the user wins, a victory message will be printed to the grid. If the user loses, a defeat message will be printed to the grid. 
 
 Computer behaviour: The computer will continue moving its ship (in random directions?) until the player ship is in range. Once in range, the computer will continue to attack until the player moves his ship out of range. At this point, the computer ship will resume moving around. 
+
 # Unity Notes
 
 I will be watching Brackey Unity beginner's tutorial
 
 https://www.youtube.com/watch?v=j48LtUkZRjU&list=PLPV2KyIb3jR5QFsefuO2RlAgWEz6EvVi6
+
 Add youtube video title you are watching and summarize any significant information that can be used
+
 Add timestamps to significantly important chapters of a video
 
 
