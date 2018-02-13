@@ -9,11 +9,32 @@ Gameplay: Gameplay will be turn based. On the player's turn, he can choose to ei
 
 Computer behaviour: The computer will continue moving its ship (in random directions?) until the player ship is in range. Once in range, the computer will continue to attack until the player moves his ship out of range. At this point, the computer ship will resume moving around. 
 
+# Unity Notes
+Make sure to leave a blank link between each line of text or else the next line merges with the previous
+
+Example: This is one line
+BUT I didn't leave a blank line in between so the BUT is within the same line above!
+
+I will be watching Brackey Unity beginner's tutorial
+
+https://www.youtube.com/watch?v=j48LtUkZRjU&list=PLPV2KyIb3jR5QFsefuO2RlAgWEz6EvVi6
+
+Add youtube video title you are watching and summarize any significant information that can be used.
+
+Add timestamps to significantly important chapters of a video
+
+end of Unity Notes
 # Revision History
 0.01 - Got 2D board uploaded and moving ship works
 
 0.02 - Can move ship with speed of one limit from the center of board and the four corners. Test the four sides
 
 0.03 - See array of ship
+
+0.03 - We assumed we needed a char of ships. We only needed a getter function for ships's rep and set it equal to the char array's values
+       We also created instances of ship in the main and tested that the speed works for specific ships we're passing in the moveONE function                 
+       correctly.
+
+2/11 v 0.05 - CheckRange function works. Attack function works. Simplify check range too.
 
 end
