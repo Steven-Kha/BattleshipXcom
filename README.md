@@ -13,7 +13,7 @@ Computer behaviour: The computer will continue moving its ship (in random direct
 Make sure to leave a blank link between each line of text or else the next line merges with the previous
 
 Example: This is one line
-I didn't leave a blank line in between so it looks realy weird!
+BUT I didn't leave a blank line in between so the BUT is within the same line above!
 
 I will be watching Brackey Unity beginner's tutorial
 
