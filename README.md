@@ -9,8 +9,13 @@ Gameplay: Gameplay will be turn based. On the player's turn, he can choose to ei
 
 Computer behaviour: The computer will continue moving its ship (in random directions?) until the player ship is in range. Once in range, the computer will continue to attack until the player moves his ship out of range. At this point, the computer ship will resume moving around. 
 # Unity Notes
+
+I will be watching Brackey Unity beginner's tutorial
+
+https://www.youtube.com/watch?v=j48LtUkZRjU&list=PLPV2KyIb3jR5QFsefuO2RlAgWEz6EvVi6
 Add youtube video title you are watching and summarize any significant information that can be used
 Add timestamps to significantly important chapters of a video
+
 
 end of Unity Notes
 # Revision History
