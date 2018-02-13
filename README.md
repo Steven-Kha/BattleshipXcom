@@ -15,10 +15,9 @@ I will be watching Brackey Unity beginner's tutorial
 
 https://www.youtube.com/watch?v=j48LtUkZRjU&list=PLPV2KyIb3jR5QFsefuO2RlAgWEz6EvVi6
 
-Add youtube video title you are watching and summarize any significant information that can be used
+Add youtube video title you are watching and summarize any significant information that can be used.
 
 Add timestamps to significantly important chapters of a video
-
 
 end of Unity Notes
 # Revision History
