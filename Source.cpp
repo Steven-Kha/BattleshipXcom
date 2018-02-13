@@ -23,26 +23,25 @@ bool checkRange(int range, int xNum, int oneX, int oneY, int twoX, int twoY,
 int main() {
 	char oceanBoard[6][6] = {};
 	// health_(health), attack_(attack), range_(range), speed_(speed), hitProb_(prob), shipName(name), rep_(rep)
-	//           hp,atk,rg,spd,prob,     name, rep
-	ship corvette(10, 2, 2, 2, 0.8, "corvette", 'C');
+	//           hp,atk,rg,spd,prob,    name,    rep
+	ship corvette(10, 2, 2, 2, 0.80, "corvette", 'C');
 	ship ironclad(15, 6, 1, 1, 0.99, "Ironclad", 'i');
 
-	//player one starting coordinates
+	//player one's starting coordinates
 	int OneX = 3;
 	int OneY = 3;
 
-	//player two starting coordinates
+	//player two's starting coordinates
 	int TwoX = 5;
 	int TwoY = 5;
 
 	oceanBoard[OneY][OneX] = corvette.getRep();		// placing player 1's ship on the board
 	oceanBoard[TwoY][TwoX] = ironclad.getRep();		// placing player 2's ship on the board
 
-	print(corvette, ironclad, oceanBoard);			// printing the gameboard to the console
+	print(corvette, ironclad, oceanBoard);				// printing the gameboard to the console
+	int menuSelection = 0;												// the player's selection from the menu
 
-	int menuSelection = 0;							// the player's selection from the menu
-
-													// this is the actual menu itself
+	// this is the actual menu itself
 	while (corvette.getHealth() > 0 && ironclad.getHealth() > 0) {
 		std::cout << "Select an option:\n";
 		std::cout << "1) Move\n";
@@ -73,7 +72,7 @@ int main() {
 		cout << "Your ship was sunk. You've lost...\n\n";
 	}
 	else {
-		cout << "I'm not sure what happened...\n\n";
+		cout << "I'm not sure what happened...  :P\n\n";
 	}
 	system("pause");
 	return 0;
@@ -81,39 +80,40 @@ int main() {
 
 void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship player2, char board[][6]) {
 	bool rangePass = false;
-	int coordY = 0;
-	char coordX;
-	int xNum = 0;				// destination coordinates
-	bool xPass = false;			//
+	int coordY = 0;					// user input: y-coordinates
+	char coordX;						// user input: x-Coordinates
+	int xNum = 0;						// the corresponding array index
+	bool xPass = false;
 	bool yPass = false;
 	cout << "------------------------";
 
+	// a do-while loop to ask for new destination coordinates, then checks to speed
+	// if the coordinates are within movement range
 	do
 	{
 		cout << "Enter X coordinate: ";
-		cin >> coordX;				// coordX is user input
+		cin >> coordX;
 
-									//converting Letters to x coordinates
-		if (coordX == 'A' || coordX == 'a') { xNum = 0; }
-		else if (coordX == 'B' || coordX == 'b') { xNum = 1; }
-		else if (coordX == 'C' || coordX == 'c') { xNum = 2; }
-		else if (coordX == 'D' || coordX == 'd') { xNum = 3; }
-		else if (coordX == 'E' || coordX == 'e') { xNum = 4; }
-		else if (coordX == 'F' || coordX == 'f') { xNum = 5; }
+		//converting Letters to their corresponding array index
+		if 			(coordX == 'A' || coordX == 'a') 	{ xNum = 0; }
+		else if (coordX == 'B' || coordX == 'b') 	{ xNum = 1; }
+		else if (coordX == 'C' || coordX == 'c') 	{ xNum = 2; }
+		else if (coordX == 'D' || coordX == 'd') 	{ xNum = 3; }
+		else if (coordX == 'E' || coordX == 'e') 	{ xNum = 4; }
+		else if (coordX == 'F' || coordX == 'f') 	{ xNum = 5; }
+		else 		{ xNum = 7; }
 
-		else { xNum = 7; }
 		cout << "Enter Y coordinates: ";
 		cin >> coordY;
 		if (coordY < 1 || coordY > 6) {
 			cout << "Please re-enter valid Y: ";
 		}
 
+		// here, we check if the user's coordinates are within range of the user's ship
 		rangePass = checkRange(player.getSpeed(), xNum, oneX, oneY, twoX, twoY, coordY, player, player2, board);
 
-
-
-
 	} while ((xNum == 7) || (coordY < 1 || coordY > 6) || (!rangePass));
+
 
 	if (board[coordY - 1][xNum] != board[twoY][twoX]) {
 		board[coordY - 1][xNum] = player.getRep();
@@ -131,9 +131,8 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 		system("pause");
 		moveOne(oneX, oneY, twoX, twoY, player, player2, board);
 	}
-
-
 }
+
 
 bool checkRange(int range, int xDest, int xCurr, int yCurr, int twoX, int twoY,
 	int yDest, ship player, ship player2, char board[][6]) {
@@ -148,19 +147,16 @@ bool checkRange(int range, int xDest, int xCurr, int yCurr, int twoX, int twoY,
 	// but what if dest: 1 cur: 5
 	// 1 - 5 = -4 so it would pass
 	// so check if destination is greater or equal to current location
-	if ((xDest - xCurr <= range && xDest >= xCurr)) // xDest is destination; xCurr is current location
-	{
+	if ((xDest - xCurr <= range && xDest >= xCurr)) { // xDest is destination; xCurr is current location
 		xPass = true;
 	}
 
-	if (xPass == false) { //
-
+	if (xPass == false) {
 		//but what if:
 		// dest: 3 curr: 5
 		// 3-5 = -2 but
 		//5-3 =2 so it should pass
 		//so check current - destination is = or below range but current is greater than destination
-		//
 		if (xCurr - xDest <= range && xCurr > xDest) {
 			xPass = true;
 		}
@@ -171,7 +167,6 @@ bool checkRange(int range, int xDest, int xCurr, int yCurr, int twoX, int twoY,
 			print(player, player2, board);
 			return false;
 		}
-
 	}
 
 	//------------------------------check y coordinates now
@@ -201,9 +196,8 @@ bool checkRange(int range, int xDest, int xCurr, int yCurr, int twoX, int twoY,
 			print(player, player2, board);
 			return false;
 		}
-		//cout << "I passed part 2! \n";
-
 	}
+	// this is if the user enters their current position as a move destination
 	if (board[yDest - 1][xDest] == board[yCurr][xCurr]) {
 		char answer;
 		cout << "You didn't move. \n"
@@ -217,12 +211,9 @@ bool checkRange(int range, int xDest, int xCurr, int yCurr, int twoX, int twoY,
 		else {
 			system("cls");
 			print(player, player2, board);
-
 			return false;
 		}
-
 	}
-
 	return true;
 }
 
