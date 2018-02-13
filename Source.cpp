@@ -85,12 +85,13 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 	int xNum = 0;						// the corresponding array index
 	bool xPass = false;
 	bool yPass = false;
-	cout << "------------------------\n";
 
 	// a do-while loop to ask for new destination coordinates, then checks to speed
 	// if the coordinates are within movement range
 	do
 	{
+		cout << "-------------------------------------\n";
+		cout << "Moving to new destination...\n";
 		cout << "Enter X coordinate: ";
 		cin >> coordX;
 
@@ -198,14 +199,15 @@ bool checkRange(int range, int xDest, int xCurr, int yCurr, int twoX, int twoY,
 	// this is if the user enters their current position as a move destination
 	if (board[yDest - 1][xDest] == board[yCurr][xCurr]) {
 		char answer;
-		cout << "You didn't move. \n"
-			<< "Re-enter coordinates or quit? \n";
+		cout << "-------------------------------------\n";
+		cout << "The ship is already at the requested destination\n"
+			<< "Re-enter coordinates or quit game? \n";
 		cout << "------------------------- \n"
-			<< "[Any key] Re-enter \n"
-			<< "[N] No\n"
+			<< "[R] Re-enter coordinates\n"
+			<< "[Q] Quit\n"
 			<< "Choice: ";
 		cin >> answer;
-		if (answer == 'n' || answer == 'N') { exit(1); }
+		if (answer == 'q' || answer == 'Q') { exit(1); }
 		else {
 			system("cls");
 			print(player, player2, board);
