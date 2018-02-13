@@ -41,7 +41,7 @@ int main() {
 	print(corvette, ironclad, oceanBoard);				// printing the gameboard to the console
 	int menuSelection = 0;												// the player's selection from the menu
 
-	// this is the actual menu itself
+																		// this is the actual menu itself
 	while (corvette.getHealth() > 0 && ironclad.getHealth() > 0) {
 		std::cout << "Select an option:\n";
 		std::cout << "1) Move\n";
@@ -85,7 +85,7 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 	int xNum = 0;						// the corresponding array index
 	bool xPass = false;
 	bool yPass = false;
-	cout << "------------------------";
+	cout << "------------------------\n";
 
 	// a do-while loop to ask for new destination coordinates, then checks to speed
 	// if the coordinates are within movement range
@@ -95,18 +95,18 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 		cin >> coordX;
 
 		//converting Letters to their corresponding array index
-		if 			(coordX == 'A' || coordX == 'a') 	{ xNum = 0; }
-		else if (coordX == 'B' || coordX == 'b') 	{ xNum = 1; }
-		else if (coordX == 'C' || coordX == 'c') 	{ xNum = 2; }
-		else if (coordX == 'D' || coordX == 'd') 	{ xNum = 3; }
-		else if (coordX == 'E' || coordX == 'e') 	{ xNum = 4; }
-		else if (coordX == 'F' || coordX == 'f') 	{ xNum = 5; }
-		else 		{ xNum = 7; }
+		if (coordX == 'A' || coordX == 'a') { xNum = 0; }
+		else if (coordX == 'B' || coordX == 'b') { xNum = 1; }
+		else if (coordX == 'C' || coordX == 'c') { xNum = 2; }
+		else if (coordX == 'D' || coordX == 'd') { xNum = 3; }
+		else if (coordX == 'E' || coordX == 'e') { xNum = 4; }
+		else if (coordX == 'F' || coordX == 'f') { xNum = 5; }
+		else { xNum = 7; }
 
-		cout << "Enter Y coordinates: ";
+		cout << "Enter Y coordinate: ";
 		cin >> coordY;
 		if (coordY < 1 || coordY > 6) {
-			cout << "Please re-enter valid Y: ";
+			cout << "Invalid y-coordinate\n";
 		}
 
 		// here, we check if the user's coordinates are within range of the user's ship
@@ -114,20 +114,20 @@ void moveOne(int & oneX, int & oneY, int & twoX, int & twoY, ship player, ship p
 
 	} while ((xNum == 7) || (coordY < 1 || coordY > 6) || (!rangePass));
 
-
+	// This is where the player actually moves his ship if the new destination is unoccupied
 	if (board[coordY - 1][xNum] != board[twoY][twoX]) {
-		board[coordY - 1][xNum] = player.getRep();
-		board[oneY][oneX] = 'X';
-		oneY = coordY - 1;
+		board[coordY - 1][xNum] = player.getRep();						// print the player's ship to the new destination
+		board[oneY][oneX] = 'X';															// replace the old position with 'X'
+		oneY = coordY - 1;																		// update the player's current position
 		oneX = xNum;
-		cout << "Coordinates received!... \n";
+		cout << "Coordinates received. Moving to new position\n";
 		system("pause");
 		system("cls");
 		print(player, player2, board);
 	}
 
 	else {
-		cout << "That's where the other ship is!";
+		cout << "Position is occupied\n";
 		system("pause");
 		moveOne(oneX, oneY, twoX, twoY, player, player2, board);
 	}
@@ -161,7 +161,7 @@ bool checkRange(int range, int xDest, int xCurr, int yCurr, int twoX, int twoY,
 			xPass = true;
 		}
 		else {
-			cout << "Please re-enter valid X: ";
+			cout << "Invalid x-coordinate. Please enter valid coordinates\n\n";
 			system("pause");
 			system("cls");
 			print(player, player2, board);
@@ -172,8 +172,6 @@ bool checkRange(int range, int xDest, int xCurr, int yCurr, int twoX, int twoY,
 	//------------------------------check y coordinates now
 	//check if coordinate is out of bounds and speed displacement is greater than one or
 	//less than zero
-	/*cout << "Enter Y coordinates: ";
-	cin >> yDest;*/
 
 	//destination - current location
 	//we are offsetting the coord y because the board starts at one instead of zero
@@ -185,12 +183,12 @@ bool checkRange(int range, int xDest, int xCurr, int yCurr, int twoX, int twoY,
 	if (yPass == false) {
 		//current location - destination
 		//we are offsetting the coord y because the board starts at one instead of zero
-		if (  ( (yCurr + 1) - yDest <= range  ) && ( (yCurr + 1) > yDest)   ) {
+		if (((yCurr + 1) - yDest <= range) && ((yCurr + 1) > yDest)) {
 			//cout << "Failed Y part 2 \n";
 			yPass = true;
 		}
 		else {
-			cout << "Please re-enter valid Y: ";
+			cout << "Invalid y-coordinate. Please enter valid coordinates\n\n";
 			system("pause");
 			system("cls");
 			print(player, player2, board);
@@ -217,7 +215,7 @@ bool checkRange(int range, int xDest, int xCurr, int yCurr, int twoX, int twoY,
 	return true;
 }
 
-// the following is the attack function==================================================================
+// This is the attack function
 void attack(int oneX, int oneY, int & twoX, int & twoY, ship & player, ship & player2, char board[][6]) {
 	char coordX;
 	int coordY = 0;
@@ -230,14 +228,13 @@ void attack(int oneX, int oneY, int & twoX, int & twoY, ship & player, ship & pl
 		cout << "Enter X coordinates: ";
 		cin >> coordX;			// coordX is user input
 
-								//converting Letters to x coordinates
+								//converting Letters to their corresponding array index
 		if (coordX == 'A' || coordX == 'a') { xNum = 0; }
 		else if (coordX == 'B' || coordX == 'b') { xNum = 1; }
 		else if (coordX == 'C' || coordX == 'c') { xNum = 2; }
 		else if (coordX == 'D' || coordX == 'd') { xNum = 3; }
 		else if (coordX == 'E' || coordX == 'e') { xNum = 4; }
 		else if (coordX == 'F' || coordX == 'f') { xNum = 5; }
-
 		else { xNum = 7; }
 		cout << "Enter Y coordinates: ";
 		cin >> coordY;
@@ -246,10 +243,6 @@ void attack(int oneX, int oneY, int & twoX, int & twoY, ship & player, ship & pl
 		}
 
 		rangePass = checkRange(player.getRange(), xNum, oneX, oneY, twoX, twoY, coordY, player, player2, board);
-
-
-
-
 	} while ((xNum == 7) || (coordY < 1 || coordY > 6) || (!rangePass));
 
 
@@ -258,9 +251,13 @@ void attack(int oneX, int oneY, int & twoX, int & twoY, ship & player, ship & pl
 
 	// if user's targeting coordinates == coordinates of enemy ship...
 	if (board[coordY - 1][xNum] == board[twoY][twoX]) {
+		// first, generate a random number between 1 and 100 and turn it into its decimal value
+		// i.e. 90 = 0.9,    89 = 0.89,    57 = 0.57
 		srand(time(NULL));
 		double random = rand() % 100 + 1;
 		random /= 100;
+		// if the random number is less than the ship's hit probability, then the shot is a direct hit
+		// otherwise, the shot is a miss
 		if (random <= player.getHitProb()) {
 			int p2DamagedHealth = player2.getHealth() - player.getAttack();
 			player2.setHealth(p2DamagedHealth);
@@ -279,6 +276,7 @@ void attack(int oneX, int oneY, int & twoX, int & twoY, ship & player, ship & pl
 			print(player, player2, board);
 		}
 	}
+	// player is allowed to target empty water
 	else {
 		cout << "-------------------------------------------------\n";
 		cout << "Shots landed in open water\n";
