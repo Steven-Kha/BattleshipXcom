@@ -10,7 +10,7 @@ Gameplay: Gameplay will be turn based. On the player's turn, he can choose to ei
 Computer behaviour: The computer will continue moving its ship (in random directions?) until the player ship is in range. Once in range, the computer will continue to attack until the player moves his ship out of range. At this point, the computer ship will resume moving around. 
 
 # Watchtower Overwatch Idea
-Have a place on the map representing a watch tower. A ship next to a watchtower can increase it line of sight based on the watch tower's own line of sight. However a ship next to a watchtower will receive damage from collateral damage the tower is destroyed by an opponent. 
+Have a place on the map representing a watch tower. A ship next to a watchtower can increase it line of sight based on the watch tower's own line of sight and use it attack opponent's further than their own line of sight. However a ship next to a watchtower will receive damage from collateral damage the tower is destroyed by an opponent. 
 
 # Unity Notes
 Make sure to leave a blank link between each line of text or else the next line merges with the previous
